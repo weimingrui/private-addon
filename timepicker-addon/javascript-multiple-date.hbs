@@ -1,0 +1,144 @@
+<style>
+  body {
+    font-size : 14px;
+  }
+  * {
+    -moz-box-sizing : border-box;
+    box-sizing      : border-box;
+  }
+</style>
+<style>
+  .calendar-content{
+    background:#eee;
+  }
+  .week-style{
+
+  }
+  .calendar-title{
+    text-align: center;
+    color:#000;
+    font-size:medium;
+    padding-top: 10px;
+  }
+  .calendar-body{
+    height:100%;
+    color:#000;
+    font-size:5px;
+    margin-top:10px;
+  }
+  .day{
+    width: 14%;
+    float: left;
+    text-align: center;
+    color:#000;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .day-selected{
+    color:#fff;
+    background:#504aa2
+  }
+  .date-item:hover{
+    color:#fff;
+    background:#b2bace
+  }
+  .calendar-month-item{
+    width: 25%;
+    float: left;
+    text-align: center;
+    color:#000;
+    font-size:medium;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .calendar-date-selected{
+    color:#fff;
+    background:#504aa2
+  }
+  .calendar-month-selected{
+    color:#fff;
+    background:#504aa2
+  }
+  .calendar-year-selected{
+    color:#fff;
+    background:#504aa2
+  }
+  .calendar-year-item{
+    width: 25%;
+    float: left;
+    font-size:medium;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .calendar-date-mouseover{
+    color:#fff;
+    background:#dddeae
+  }
+  .calendar-year-mouseover{
+    color:#fff;
+    background:#dddeae
+  }
+  .calendar-month-mouseover{
+    color:#fff;
+    background:#dddeae
+  }
+  .date-today{
+    background:#dddeae;
+  }
+  .month-size{
+
+  }
+  .year-font{
+
+  }
+  .year-size{
+
+  }
+</style>
+<div class="row calendar-notice"><span style="font-size: 3px;color: green;">鼠标左键拖选选中，右键拖选移除！</span></div>
+<div class="row multiple calendar-content">
+  <div class=" col-md-12 calendar-title">
+    <div class="col-md-2" style="float:left;" {{action "previouse"}}>◀</div>
+    <div class="col-md-8" {{action "setShowLayoutMode" 2}} >
+      {{#if (eq showLayoutMode 0)}}
+        {{titleYearMonth}}
+      {{/if}}
+      {{#if (eq showLayoutMode 1)}}
+        {{titleYearText}}年
+      {{/if}}
+      {{#if (eq showLayoutMode 2)}}
+        {{yearRangeText}}
+      {{/if}}
+    </div>
+    <div class="col-md-2" style="float:right;" {{action "next"}}>▶</div>
+  </div>
+  <div class="col-md-12 calendar-body">
+    {{#if (eq showLayoutMode 0)}}
+      {{#each week as |day index| }}
+        <div class ="day" style="">
+          {{day}}
+        </div>
+      {{/each}}
+      {{#each dates as |date index| }}
+        <div class ="day date-item calendar-date-{{index}} ">{{multiple-date-day model=date selectDateList=selectDateList updateSelectedDateList="updateSelectedDateList" index=index}}</div>
+      {{/each}}
+    {{/if}}
+    {{#if (eq showLayoutMode 1)}}
+      {{#each months as |month index| }}
+          <div class =" calendar-month-item calendar-month-{{index}} ">
+            {{multiple-calendar-month model=month selectDateList=selectDateList  selectedIndexMonth="selectedIndexMonth" index=index}}
+          </div>
+      {{/each}}
+    {{/if}}
+    {{#if (eq showLayoutMode 2)}}
+      {{#each years as |year index| }}
+        <div class =" calendar-year-item calendar-year-{{index}}">
+          {{multiple-calendar-year model=year selectDateList=selectDateList  selectedIndexYear="selectedIndexYear" index=index}}
+        </div>
+      {{/each}}
+    {{/if}}
+
+
+  </div>
+</div>
